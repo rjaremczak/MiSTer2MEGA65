@@ -240,6 +240,8 @@ signal main_rst               : std_logic;
 ---------------------------------------------------------------------------------------------
 
 -- Democore menu items
+constant C_MENU_FLIP_JOYS      : natural := 0;
+constant C_MENU_MUTE_AUDIO     : natural := 1;
 constant C_MENU_HDMI_16_9_50   : natural := 12;
 constant C_MENU_HDMI_16_9_60   : natural := 13;
 constant C_MENU_HDMI_4_3_50    : natural := 14;
@@ -409,7 +411,7 @@ begin
    -- Video and audio mode control
    qnice_dvi_o                <= '0';                                         -- 0=HDMI (with sound), 1=DVI (no sound)
    qnice_scandoubler_o        <= '0';                                         -- no scandoubler
-   qnice_audio_mute_o         <= '0';                                         -- audio is not muted
+   qnice_audio_mute_o         <= qnice_osm_control_i(C_MENU_MUTE_AUDIO);   -- audio is not muted
    qnice_audio_filter_o       <= qnice_osm_control_i(C_MENU_IMPROVE_AUDIO);   -- 0 = raw audio, 1 = use filters from globals.vhd
    qnice_zoom_crop_o          <= qnice_osm_control_i(C_MENU_HDMI_ZOOM);       -- 0 = no zoom/crop
    
@@ -439,7 +441,7 @@ begin
    qnice_ascal_triplebuf_o    <= '0';
 
    -- Flip joystick ports (i.e. the joystick in port 2 is used as joystick 1 and vice versa)
-   qnice_flip_joyports_o      <= '0';
+   qnice_flip_joyports_o      <= qnice_osm_control_i(C_MENU_FLIP_JOYS);
 
    ---------------------------------------------------------------------------------------------
    -- Core specific device handling (QNICE clock domain)

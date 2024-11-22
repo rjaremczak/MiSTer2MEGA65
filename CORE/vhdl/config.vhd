@@ -81,9 +81,9 @@ constant SCR_WELCOME : string :=
 
    -- We are not insisting. But it would be nice if you gave us credit for MiSTer2MEGA65 by leaving these lines in
    "Powered by MiSTer2MEGA65 Version [WIP],\n" &
-   "done by sy2002 and MJoergen in 2022\n" &
-
-   "\n\nEdit config.vhd to modify welcome screen.\n\n" &
+   "done by sy2002 and MJoergen in 2022\n\n" &
+   "Ported to R6 by rjaremczak in 2024\n\n" &
+   "Edit config.vhd to modify welcome screen.\n\n" &
    "You can for example show the keyboard map.\n" &
    "Look at this example for the Demo core:\n\n\n" &
 
@@ -341,8 +341,8 @@ constant OPTM_DY           : natural := 24;
 
 constant OPTM_ITEMS        : string :=
 
-   " Demo Headline A\n"     &
-   "\n"                     &
+   " Flip joysticks\n"      &
+   " Mute audio\n"          &
    " Item A.1\n"            &
    " Item A.2\n"            &
    " Item A.3\n"            &
@@ -393,14 +393,17 @@ constant OPTM_G_CRT        : integer := 6;
 constant OPTM_G_Zoom       : integer := 7;
 constant OPTM_G_Audio      : integer := 8;
 
+constant OPTM_G_FlipJoys   : integer := 10;
+constant OPTM_G_MuteAudio  : integer := 11;
+
 -- !!! DO NOT TOUCH !!!
 type OPTM_GTYPE is array (0 to OPTM_SIZE - 1) of integer range 0 to 2**OPTM_GTC- 1;
 
 -- define your menu groups: which menu items are belonging together to form a group?
 -- where are separator lines? which items should be selected by default?
 -- make sure that you have exactly the same amount of entries here than in OPTM_ITEMS and defined by OPTM_SIZE
-constant OPTM_GROUPS       : OPTM_GTYPE := ( OPTM_G_TEXT + OPTM_G_HEADLINE,            -- Headline "Demo Headline A"
-                                             OPTM_G_LINE,                              -- Line
+constant OPTM_GROUPS       : OPTM_GTYPE := ( OPTM_G_FlipJoys + OPTM_G_SINGLESEL,       -- Headline "Demo Headline A"
+                                             OPTM_G_MuteAudio + OPTM_G_SINGLESEL,          
                                              OPTM_G_Demo_A + OPTM_G_START,             -- Item A.1, cursor start position
                                              OPTM_G_Demo_A + OPTM_G_STDSEL,            -- Item A.2, selected by default
                                              OPTM_G_Demo_A,                            -- Item A.3
